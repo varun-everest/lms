@@ -4,6 +4,8 @@ import {book} from './models/books';
 import {member} from './models/members';
 import {loan} from './models/loans';
 import {reservation} from './models/reservations';
+
+
 async function synchronizeAllModels() {
     try{
         await sequelize.sync();
@@ -12,7 +14,7 @@ async function synchronizeAllModels() {
         console.log('Some error occured ', err);
     }
 }
-async function createauthors()
+async function createModels()
 {
     try{
         await author.sync({force:true});
@@ -30,5 +32,5 @@ async function createauthors()
     }
 
 }
-createauthors();
-synchronizeAllModels();
+createModels();
+// synchronizeAllModels();
