@@ -5,6 +5,9 @@ import {member} from './models/members';
 import {loan} from './models/loans';
 import {reservation} from './models/reservations';
 
+import { getAllAuthors } from './repositories/AuthorsRepo';
+import { insertAuthors, insertBooks, insertLoans, insertMembers, insertReservations } from './insertion';
+
 
 // async function synchronizeAllModels() {
 //     try{
@@ -18,20 +21,31 @@ async function createModels()
 {
     try{
         await author.sync({force:true});
-        console.log("author created");
+        console.log("author table created");    
+
         await book.sync({force:true});
-        console.log("book created");
+        console.log("book table created");
+        
         await member.sync({force:true});
-        console.log("member created");
+        console.log("member table created");     
+
         await loan.sync({force:true});
-        console.log("loan created");
+        console.log("loan table created");
+        
         await reservation.sync({force:true});
-        console.log("reservation created");
+        console.log("reservation table created");
+
+        insertAuthors();
+        insertBooks();
+        insertMembers();
+        insertLoans();
+        insertReservations();
+
+        
     } catch(err){
         console.log(err); 
     }
 }
 createModels();
-
 
 // synchronizeAllModels();

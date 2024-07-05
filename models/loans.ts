@@ -2,6 +2,7 @@ import { DataTypes } from "sequelize";
 import { sequelize } from "../config/connection";
 import { author } from "./authors";
 import { member } from "./members";
+import { book } from "./books";
 
 const loan = sequelize.define(
     'loan',
@@ -29,7 +30,7 @@ const loan = sequelize.define(
             type: DataTypes.DATE,
             allowNull : false,
         },
-        due_data: {
+        due_date: {
             type: DataTypes.DATE,
             allowNull: false
         }
@@ -39,5 +40,10 @@ const loan = sequelize.define(
         timestamps: false,
     }
 );
+book.hasMany(loan, { foreignKey: 'book_id' });
+loan.belongsTo(book, { foreignKey: 'book_id' });
+
+member.hasMany(loan, { foreignKey: 'member_id' });
+loan.belongsTo(member, { foreignKey: 'member_id' });
 
 export {loan};

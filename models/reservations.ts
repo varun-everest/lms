@@ -1,7 +1,8 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/connection";
 import { author } from "./authors";
-import { member } from "./members"
+import { member } from "./members";
+import { book } from "./books";
 
 const reservation = sequelize.define(
     'reservation',
@@ -35,5 +36,11 @@ const reservation = sequelize.define(
         timestamps : false,
     }
 );
+
+book.hasMany(reservation, { foreignKey: 'book_id' });
+reservation.belongsTo(book, { foreignKey: 'book_id' });
+
+member.hasMany(reservation, { foreignKey: 'member_id' });
+reservation.belongsTo(member, { foreignKey: 'member_id' });
 
 export {reservation};
