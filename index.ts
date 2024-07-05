@@ -5,8 +5,13 @@ import {member} from './models/members';
 import {loan} from './models/loans';
 import {reservation} from './models/reservations';
 
-import { getAllAuthors } from './repositories/AuthorsRepo';
-import { insertAuthors, insertBooks, insertLoans, insertMembers, insertReservations } from './insertion';
+import { Insertion } from './insertion';
+import { AuthorsRepository } from './repositories/AuthorsRepo';
+import { BooksRepository } from './repositories/BooksRepo';
+import { LoanRepository } from './repositories/LoansRepo';
+import { MembersRepositpory } from './repositories/MembersRepo';
+import { ReservationsRepository } from './repositories/ReservationsRepo';
+
 
 
 // async function synchronizeAllModels() {
@@ -17,6 +22,7 @@ import { insertAuthors, insertBooks, insertLoans, insertMembers, insertReservati
 //         console.log('Some error occured ', err);
 //     }
 // }
+
 async function createModels()
 {
     try{
@@ -35,15 +41,21 @@ async function createModels()
         await reservation.sync({force:true});
         console.log("reservation table created");
 
-        insertAuthors();
-        insertBooks();
-        insertMembers();
-        insertLoans();
-        insertReservations();
+        Insertion.insertAuthors();
+        Insertion.insertBooks();
+        Insertion.insertMembers();
+        Insertion.insertLoans();
+        Insertion.insertReservations();
 
-        
+        AuthorsRepository.getAllAuthors();
+        BooksRepository.getAllBooks();
+        MembersRepositpory.getAllMembers();
+        LoanRepository.getAllLoans();
+        ReservationsRepository.getAllReservations();
+
+
     } catch(err){
-        console.log(err); 
+        console.log("some error occurred while syncronizing the models ",err); 
     }
 }
 createModels();
