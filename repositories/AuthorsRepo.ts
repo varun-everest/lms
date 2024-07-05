@@ -55,7 +55,7 @@ const deleteAuthor = async(authorId: any) => {
     try{
         const auth = await author.findByPk(authorId);
         if(auth){
-            await author.destroy();
+            await auth.destroy();
             console.log("Successfully deleted author!!");
         }
         else{
