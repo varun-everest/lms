@@ -1,8 +1,10 @@
 import { book } from "../models/books";
-import { app } from "../config/server";
+import express, { Request, Response } from 'express';
+const bookRouter = express.Router();
+
 
 // fetching all the books
-app.get('/books', async (req : any, res : any) => {
+bookRouter.get('/books', async (req, res) => {
     try {
         // Fetch all authors include books:
         const allBooks = await book.findAll();
@@ -15,7 +17,7 @@ app.get('/books', async (req : any, res : any) => {
 });
 
 // Get the details of the book by id:
-app.get('/books/:id', async (req : any, res : any)  => {
+bookRouter.get('/books/:id', async (req, res)  => {
     try {
         const b = await book.findByPk(req.params.id);
         if (b === null) {
@@ -28,7 +30,7 @@ app.get('/books/:id', async (req : any, res : any)  => {
 });
 
 // Creating a new book
-app.post('/books', async (req : any, res : any) => {
+bookRouter.post('/books', async (req, res) => {
     try {
         const bk = await book.create(req.body);
         res.json(bk);
@@ -38,7 +40,7 @@ app.post('/books', async (req : any, res : any) => {
 });
 
 // Update a book
-app.put('/books/:id', async (req : any, res : any) => {
+bookRouter.put('/books/:id', async (req, res) => {
     try {
         const [updated] = await book.update(req.body, {where: {id: req.params.id}});
         if (updated) {
@@ -53,7 +55,7 @@ app.put('/books/:id', async (req : any, res : any) => {
 });
 
 // Delete a book :
-app.delete('/books/:id', async (req : any, res : any) => {
+bookRouter.delete('/books/:id', async (req, res) => {
     try {
         const deleted = await book.destroy({where: {id: req.params.id}});
         if (deleted) {
@@ -65,3 +67,5 @@ app.delete('/books/:id', async (req : any, res : any) => {
         res.status(500).json({message: err.message});
     }
 });
+
+export {bookRouter};

@@ -12,7 +12,6 @@ import { LoanRepository } from './repositories/LoansRepo';
 import { MembersRepositpory } from './repositories/MembersRepo';
 import { ReservationsRepository } from './repositories/ReservationsRepo';
 
-import { app } from './config/server';
 
 
 // async function synchronizeAllModels() {

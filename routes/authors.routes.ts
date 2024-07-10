@@ -1,9 +1,9 @@
 import { author } from "../models/authors";
-import { app } from "../config/server";
-
+import express, { Request, Response } from 'express';
+const authRouter = express.Router();
 
 // Get all authors
-app.get('/', async (req: any, res: any ) => {
+authRouter.get('/', async (req, res ) => {
     try {
         const authors = await author.findAll();
         if (authors.length === 0) return res.status(404).json({ message: "No Authors Found" });
@@ -12,8 +12,9 @@ app.get('/', async (req: any, res: any ) => {
         res.status(500).json({message: err.message});
     }
 });
+
 // Get one author
-app.get('/:id', async (req:any, res: any) => {
+authRouter.get('/:id', async (req, res) => {
     try {
         const ar = await author.findByPk(req.params.id);
         if (ar === null) {
@@ -26,7 +27,7 @@ app.get('/:id', async (req:any, res: any) => {
 });
 
 // Create a new author
-app.post('/', async (req: any, res: any) => {
+authRouter.post('/', async (req, res) => {
     try {
         const a = await author.create(req.body);
         res.json(a);
@@ -36,7 +37,7 @@ app.post('/', async (req: any, res: any) => {
 });
 
 // Update an author
-app.put('/:id', async (req: any, res: any) => {
+authRouter.put('/:id', async (req, res) => {
     try {
         const [updated] = await author.update(req.body, {where: {id: req.params.id}});
         if (updated) {
@@ -49,8 +50,9 @@ app.put('/:id', async (req: any, res: any) => {
         res.status(400).json({message: err.message});
     }
 });
+
 // Delete an author
-app.delete('/:id', async (req: any, res: any) => {
+authRouter.delete('/:id', async (req, res) => {
     try {
         const deleted = await author.destroy({where: {id: req.params.id}});
         if (deleted) {
@@ -62,3 +64,5 @@ app.delete('/:id', async (req: any, res: any) => {
         res.status(500).json({message: err.message});
     }
 });
+
+export {authRouter};

@@ -1,9 +1,10 @@
-import { app} from "../config/server"; 
 import { member } from "../models/members";
-import { req, res } from "../config/server";
+import express, { Request, Response } from 'express';
+const memRouter = express.Router();
+
 
 // fetching all the members
-app.get('/members', async (req: any, res: any) => {
+memRouter.get('/members', async (req: any, res: any) => {
     try {
         const allMembers = await member.findAll();
         if (allMembers.length === 0) 
@@ -15,7 +16,7 @@ app.get('/members', async (req: any, res: any) => {
 });
 
 // Get the details of the member by id:
-app.get('/members/:id', async (req: any, res: any) => {
+memRouter.get('/members/:id', async (req: any, res: any) => {
     try {
         const m = await member.findByPk(req.params.id);
         if (m === null) {
@@ -28,7 +29,7 @@ app.get('/members/:id', async (req: any, res: any) => {
 });
 
 // Creating a new member
-app.post('/members', async (req: any, res: any) => {
+memRouter.post('/members', async (req: any, res: any) => {
     try {
         const mem = await member.create(req.body);
         res.json(mem);
@@ -38,7 +39,7 @@ app.post('/members', async (req: any, res: any) => {
 });
 
 // Update a member
-app.put('/members/:id', async (req: any, res: any) => {
+memRouter.put('/members/:id', async (req: any, res: any) => {
     try {
         const [updated] = await member.update(req.body, {where: {id: req.params.id}});
         if (updated) {
@@ -53,7 +54,7 @@ app.put('/members/:id', async (req: any, res: any) => {
 });
 
 // Delete a member :
-app.delete('/books/:id', async (req: any, res:any) => {
+memRouter.delete('/books/:id', async (req: any, res:any) => {
     try {
         const deleted = await member.destroy({where: {id: req.params.id}});
         if (deleted) {
@@ -65,3 +66,5 @@ app.delete('/books/:id', async (req: any, res:any) => {
         res.status(500).json({message: err.message});
     }
 });
+
+export {memRouter};
