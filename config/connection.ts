@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('lms', 'varun', 'varun',
+const sequelize = new Sequelize('', 'varun', 'varun',
     {
         host : 'localhost',
         dialect : 'postgres'
