@@ -1,3 +1,4 @@
+import express from 'express';
 import { sequelize } from './config/connection';
 import {author} from './models/authors';
 import {book} from './models/books';
@@ -11,6 +12,17 @@ import { BooksRepository } from './repositories/BooksRepo';
 import { LoanRepository } from './repositories/LoansRepo';
 import { MembersRepositpory } from './repositories/MembersRepo';
 import { ReservationsRepository } from './repositories/ReservationsRepo';
+
+import router from './routes/routes';
+import { authRouter } from './routes/authors.routes';
+import { bookRouter } from './routes/books.routes';
+import { memRouter } from './routes/members.routes';
+import { loanRouter } from './routes/loans.routes';
+import { reservationRouter } from './routes/reservations.routes';
+
+const app = express();
+app.use(express.json());
+app.use('/',router);
 
 
 
@@ -62,3 +74,6 @@ createModels();
 
 // synchronizeAllModels();
 
+app.listen(3000 , () => {
+    console.log(`Successfully started the server!!`);
+});

@@ -38,6 +38,14 @@ const loan = sequelize.define(
     {
         tableName : 'loans',
         timestamps: false,
+        indexes: [
+            {
+                fields: ['book_id']
+            },
+            {
+                fields: ['member_id']
+            }
+        ]
     }
 );
 book.hasMany(loan, { foreignKey: 'book_id' });

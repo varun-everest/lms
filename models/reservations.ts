@@ -34,6 +34,14 @@ const reservation = sequelize.define(
     {
         tableName : 'reservations',
         timestamps : false,
+        indexes: [
+            {
+                fields: ['book_id']
+            },
+            {
+                fields: ['member_id']
+            }
+        ]
     }
 );
 

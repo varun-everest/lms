@@ -27,6 +27,11 @@ const member = sequelize.define(
     {
         tableName : 'members',
         timestamps: false,
+        indexes: [
+            {
+                fields: ['email']
+            }
+        ]
     }
 );
 

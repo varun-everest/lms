@@ -34,7 +34,12 @@ const book = sequelize.define(
     },
     {
         tableName : 'books',
-        timestamps: false
+        timestamps: false,
+        indexes: [
+            {
+                fields: ['authorId']
+            }
+        ]
     }
 );
 
